@@ -1,0 +1,21 @@
+.app_container {
+  display: flex;
+  height: 90vh;
+}
+
+//home
+.home_content_container {
+  width: 100%;
+  overflow: hidden;
+
+  .video_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 2.5rem 1rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    overflow-y: scroll;
+    height: 90vh;
+    padding-bottom: 4rem;
+  }
+}

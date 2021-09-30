@@ -1,0 +1,38 @@
+@import "../../../base";
+
+.mobile_sidebar_container {
+  width: 100%;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  z-index: 999;
+
+  @media (min-width: $breakpoint-small) {
+    display: none;
+  }
+
+  .navItem_wrap {
+    .sidebar_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 1rem;
+      margin-bottom: 1rem;
+
+      .menuIcon {
+        width: 30px;
+      }
+
+      .logo {
+        width: 90px;
+      }
+    }
+  }
+
+  .sidebar_overlay {
+    width: 100%;
+    background: #00000047;
+  }
+}
