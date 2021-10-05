@@ -1,67 +1,60 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 
 import Categories from "../../components/Categories";
 import Video from "../../components/video";
 import "../../_app.scss";
-import request from "../../axios";
-import { setVideos } from "../../redux/youtubeSlice";
+import useGetVIdeoData from "../../custom hooks/useGetVIdeoData";
 
 export default function HomeScreen() {
-  const dispatch = useDispatch();
-  const {
-    Homevideos: { items },
-    activeCategory,
-  } = useSelector(state => state.youtube);
+  const [currentPage, setcurrentPage] = useState("");
+  const [homevideos, sethomevideos] = useState([]);
+  const [error, seterror] = useState("");
+  const [nextPage, setnextPage] = useState("");
+  const [loading, setloading] = useState(true);
+  const messagesEndRef = useRef(null);
+
+  const activeCategory = useSelector(state => state.youtube.activeCategory);
+
+  //scrool to the top of the page
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollTo(0, 0);
+  };
+
+  useEffect(() => {
+    sethomevideos(homevideos.splice(0, homevideos.length));
+    scrollToBottom();
+  }, [activeCategory]);
 
   //if user selects any category then get the cat data or get the most popular data
-  useEffect(() => {
-    activeCategory
-      ? request("/search", {
-          params: {
-            part: "snippet",
-            maxResults: 20,
-            q: activeCategory,
-          },
-        })
-          .then(res => {
-            console.log("searched results ", res.data.items);
-            dispatch(
-              setVideos({
-                items: res.data.items,
-                nextPageToken: res.data.nextPageToken,
-              })
-            );
-          })
-          .catch(err => alert(err))
-      : request("/videos", {
-          params: {
-            part: "snippet,contentDetails,statistics",
-            chart: "mostPopular",
-            regionCode: "US",
-            maxResults: 20,
-            pageToken: "",
-          },
-        })
-          .then(res => {
-            console.log("most popular", res.data.items);
-            dispatch(
-              setVideos({
-                items: res.data.items,
-                nextPageToken: res.data.nextPageToken,
-              })
-            );
-          })
-          .catch(err => alert(err));
-  }, [activeCategory]);
+  useGetVIdeoData(
+    currentPage,
+    sethomevideos,
+    homevideos,
+    setnextPage,
+    seterror,
+    setloading
+  );
+
+  const loadmore = () => {
+    setloading(true);
+    setcurrentPage(nextPage);
+  };
 
   return (
     <div className="home_content_container">
       <Categories />
-      <div className="video_container">
-        {items?.map(item => (
+      <div ref={messagesEndRef} className="video_container">
+        {error && <h5 className="error_msg">{error}</h5>}
+
+        {homevideos?.map(item => (
           <Video key={item.etag} item={item} />
         ))}
+
+        {loading && (
+          <div class="spinner-border text-primary" role="status"></div>
+        )}
+        {!error && <button onClick={loadmore}>load more</button>}
       </div>
     </div>
   );

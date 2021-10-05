@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   showSidebar: false,
   user: {},
-  Homevideos: {},
+  Homevideos: [],
   activeCategory: "",
 };
 

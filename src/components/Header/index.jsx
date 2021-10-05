@@ -25,7 +25,10 @@ export default function Header() {
           })
         );
       })
-      .catch(err => alert(err));
+      .catch(err => {
+        alert(err.message);
+        return;
+      });
   };
 
   return (
@@ -61,7 +64,11 @@ export default function Header() {
                 Sign in
               </button>
             ) : (
-              <img src={user.photo} alt="user profile" className="user_image" />
+              <img
+                src={user?.photo}
+                alt="user profile"
+                className="user_image"
+              />
             )}
           </div>
         </>

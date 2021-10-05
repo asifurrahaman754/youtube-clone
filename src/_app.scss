@@ -16,6 +16,17 @@
     background: #f9f9f9;
     overflow-y: scroll;
     height: 90vh;
+    position: relative;
     padding-bottom: 4rem;
+    justify-items: center;
+
+    .error_msg {
+      font-size: 1rem;
+      text-align: center;
+      position: absolute;
+      max-width: 400px;
+      margin-top: 1rem;
+      font-weight: 400;
+    }
   }
 }
