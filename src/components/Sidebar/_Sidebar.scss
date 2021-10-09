@@ -4,15 +4,12 @@
   width: 100%;
   min-width: 220px;
   max-width: 220px;
-  height: 100%;
   list-style: none;
   padding: 1rem 10px 0px 0px;
   background-color: white;
 
   @media (max-width: $breakpoint-small) {
-    &.hide_in_mobile {
-      display: none;
-    }
+    display: none;
   }
 
   li {

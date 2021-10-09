@@ -5,15 +5,12 @@
   display: flex;
   height: 100vh;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   z-index: 999;
 
-  @media (min-width: $breakpoint-small) {
-    display: none;
-  }
-
   .navItem_wrap {
+    height: 100vh;
     .sidebar_header {
       display: flex;
       justify-content: space-between;

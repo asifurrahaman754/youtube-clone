@@ -1,0 +1,72 @@
+@mixin image_round {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+
+.comment_container {
+  .comment_input {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0 2rem 0;
+
+    .channel_img {
+      @include image_round();
+    }
+
+    .comment_input_box {
+      flex: 1;
+      outline: none;
+      font-size: 0.85rem;
+      background: none;
+      margin-left: 1rem;
+      border: none;
+      border-bottom: 1px solid #6c757d9e;
+    }
+
+    .comment_sub {
+      border: none;
+      border-radius: 2px;
+      padding: 6px 15px;
+      color: #6c757d;
+      pointer-events: none;
+      margin-left: 1rem;
+    }
+
+    .btn_active {
+      color: white !important;
+      background-color: #065fd4;
+      pointer-events: auto !important;
+    }
+  }
+}
+
+.comment_wrapper {
+  display: flex;
+  margin-bottom: 1rem;
+
+  .comment_img {
+    @include image_round();
+  }
+
+  .comment_details {
+    margin-left: 1rem;
+
+    .com_channel_name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+
+      .comment_published {
+        font-weight: 500;
+        color: #6c757d;
+        font-size: 0.8rem;
+      }
+    }
+
+    .comment {
+      font-size: 0.92rem;
+    }
+  }
+}

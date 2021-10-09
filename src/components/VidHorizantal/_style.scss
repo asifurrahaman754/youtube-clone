@@ -1,0 +1,47 @@
+.video_horizantal_wrapper {
+  display: flex;
+  margin-bottom: 1rem;
+
+  .video_img_wrap {
+    position: relative;
+    max-width: 200px;
+
+    .lazy-load-image-background {
+      width: 100%;
+
+      img {
+        max-width: 100%;
+        width: 100%;
+        object-fit: cover;
+        height: 100%;
+      }
+    }
+
+    .vid_duration {
+      position: absolute;
+      bottom: 5px;
+      background: #000000;
+      color: white;
+      right: 5px;
+      font-size: 0.85rem;
+      padding: 0px 2px;
+    }
+  }
+
+  .horiz_vid_details {
+    margin-left: 1rem;
+
+    .vid_title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+      color: #212529;
+    }
+
+    .vid_channel_title,
+    .video_stats {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+  }
+}

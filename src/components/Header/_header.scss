@@ -7,19 +7,24 @@ header {
   height: $nav-height;
   padding: 0px 10px;
 
-  .menuIcon {
-    width: 30px;
-    margin-right: 1rem;
-    display: none;
+  .logo_Icons {
+    display: flex;
 
-    @media (max-width: $breakpoint-small) {
-      display: inline-block;
+    .menuIcon {
+      width: 30px;
+      margin-right: 1rem;
+
+      @media (min-width: $breakpoint-small) {
+        &.hideInDesktop {
+          display: none;
+        }
+      }
     }
-  }
 
-  .logo {
-    width: 100px;
-    margin-right: 1rem;
+    .logo {
+      width: 100px;
+      margin-right: 1rem;
+    }
   }
 
   .header_form {

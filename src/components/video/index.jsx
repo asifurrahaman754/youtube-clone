@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import numeral from "numeral";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import request from "../../axios";
 import { truncate } from "../../Utils";
@@ -11,6 +13,7 @@ export default function Video({ item }) {
   const [channelthumbnail, setchannelthumbnail] = useState();
   const [views, setviews] = useState();
   const [duration, setduration] = useState();
+  const history = useHistory();
   const activeCategory = useSelector(state => state.youtube.activeCategory);
 
   const {
@@ -55,15 +58,23 @@ export default function Video({ item }) {
       .catch(err => console.log(err));
   }, [channelId]);
 
+  const handleVideoClick = () => {
+    history.push(`/video/${videId}`);
+  };
+
   return (
-    <div className="video_wrap">
+    <div className="video_wrap" onClick={handleVideoClick}>
       <div className="video_img_wrap">
-        <img src={medium.url} alt="video image" />
-        <span>{_duration}</span>
+        <LazyLoadImage src={medium?.url} effect="blur" alt="video image" />
+        <span className="vid_duration">{_duration}</span>
       </div>
 
       <div className="video_details_wrap">
-        <img src={channelthumbnail?.url} alt={channelTitle} />
+        <LazyLoadImage
+          src={channelthumbnail?.url}
+          effect="blur"
+          alt={channelTitle}
+        />
 
         <div className="vid_details">
           <h3 className="video_title">{truncate(title, 60)}</h3>

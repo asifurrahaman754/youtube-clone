@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { MdExitToApp } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import SidebarItems from "../SidebarItems";
 import "../_Sidebar.scss";
@@ -11,11 +11,16 @@ import { logOut } from "../../../firebase";
 
 export default function SidebarMobile() {
   const dispatch = useDispatch();
+  const showSidebar = useSelector(state => state.youtube.showSidebar);
 
   const handleClick = () => {
     dispatch(setshowSidebar(false));
     logOut();
   };
+
+  if (!showSidebar) {
+    return null;
+  }
 
   return ReactDOM.createPortal(
     <>

@@ -17,13 +17,14 @@ export default function HomeScreen() {
   const activeCategory = useSelector(state => state.youtube.activeCategory);
 
   //scrool to the top of the page
-  const scrollToBottom = () => {
+  const scrollToTop = () => {
     messagesEndRef.current?.scrollTo(0, 0);
   };
 
   useEffect(() => {
+    //change the state directly to delete all the existing videos if we change category
     sethomevideos(homevideos.splice(0, homevideos.length));
-    scrollToBottom();
+    scrollToTop();
   }, [activeCategory]);
 
   //if user selects any category then get the cat data or get the most popular data

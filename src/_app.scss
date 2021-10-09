@@ -1,12 +1,12 @@
 .app_container {
   display: flex;
-  height: 90vh;
 }
 
 //home
 .home_content_container {
   width: 100%;
   overflow: hidden;
+  height: 90vh;
 
   .video_container {
     display: grid;
