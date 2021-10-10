@@ -2,11 +2,13 @@
   .video_title {
     margin-top: 1.5rem;
     font-size: 1.4rem;
+    padding: 0 10px;
   }
 
   .video_info {
     display: flex;
     font-size: 0.95rem;
+    padding: 0 10px;
 
     .views,
     .video_published {
@@ -32,11 +34,12 @@
 
   .video_middle_info {
     display: flex;
-    align-items: flex-start;
-    padding: 10px 0px;
+    align-items: center;
+    padding: 10px 10px;
     margin: 1rem 0px;
     border-top: 1px solid #6c757d2b;
     border-bottom: 1px solid #6c757d2b;
+    position: relative;
 
     .channel_icon {
       width: 50px;
@@ -48,7 +51,7 @@
     .channel_data {
       display: flex;
       flex-direction: column;
-      margin: 0 0 0 1rem;
+      margin: 0 0 10px 1rem;
 
       .channel_title {
         font-size: 0.85rem;
@@ -64,12 +67,6 @@
         font-size: 0.82rem;
         color: #6c757d;
         margin: 0.2rem 0 0 0;
-      }
-
-      .video_details {
-        margin-top: 1.5rem;
-        font-size: 0.85rem;
-        max-width: 550px;
       }
 
       .show_more_details {
@@ -93,5 +90,14 @@
       background: #cc0000;
       margin-left: auto;
     }
+  }
+
+  .video_details {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    overflow-x: hidden;
+    padding: 0 15px;
+    max-width: 540px;
+    white-space: pre-wrap;
   }
 }

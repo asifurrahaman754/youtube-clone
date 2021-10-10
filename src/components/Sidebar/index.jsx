@@ -17,7 +17,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <ul className="navItem_wrap">
+      <ul className="navItem_wrap hideInMobile">
         {SidebarData.map(item => (
           <SidebarItems item={item} />
         ))}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import CommentItem from "./CommentItem";
 import "./_style.scss";
 
-export default function Comment() {
+export default function Comment({ data }) {
   const [inputFocus, setinputFocus] = useState(false);
   const [inputValue, setinputValue] = useState("");
 

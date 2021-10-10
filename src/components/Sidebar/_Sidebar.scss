@@ -9,7 +9,9 @@
   background-color: white;
 
   @media (max-width: $breakpoint-small) {
-    display: none;
+    &.hideInMobile {
+      display: none;
+    }
   }
 
   li {

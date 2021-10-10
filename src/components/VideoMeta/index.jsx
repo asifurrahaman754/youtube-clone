@@ -1,54 +1,61 @@
 import { useState } from "react";
+import numeral from "numeral";
+import moment from "moment";
+
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { truncate } from "../../Utils";
 import "./_style.scss";
 
-export default function VideoMeta() {
+export default function VideoMeta({ data }) {
   const [showMore, setshowMore] = useState(false);
-
-  const dummyText =
-    "Hey guys, welcome back to the channel; we have just hit 400.Hey guys, welcome back to the channel; we have just hit 400.Hey guys, welcome back to the channel; we have just hit 400.Hey guys, welcome back to the channel; we have just hit 400.";
 
   return (
     <div className="videoMeta_container">
-      <h3 className="video_title">video title</h3>
+      <h3 className="video_title">{data?.snippet.title}</h3>
       <div className="video_info">
-        <span className="views">27,815 •</span>
-        <span className="video_published"> 27 Jan 2021</span>
+        <span className="views">
+          {numeral(data?.statistics.viewCount).format("0,0")} views&nbsp;•
+        </span>
+        <span className="video_published">
+          &nbsp;{moment(data?.snippet.publishedAt).format("D MMM YYYY")}
+        </span>
         <div className="video_impression">
           <span>
-            <AiOutlineLike /> 1K
+            <AiOutlineLike />
+            {numeral(data?.statistics.likeCount).format("0.a")}
           </span>
           <span>
-            <AiOutlineDislike /> 14
+            <AiOutlineDislike />
+            {numeral(data?.statistics.dislikeCount).format("0.a")}
           </span>
         </div>
       </div>
 
       <div className="video_middle_info">
         <img
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
+          src={data?.snippet.thumbnails.medium.url}
           alt="channel image"
           className="channel_icon"
         />
         <div className="channel_data">
-          <h5 className="channel_title">Fireship</h5>
+          <h5 className="channel_title">{data?.snippet.channelTitle}</h5>
           <h6 className="channel_sub">2.63K subscribers</h6>
-
-          <p className="video_details">
-            {!showMore ? truncate(dummyText, 100) : dummyText}
-          </p>
-
-          <span
-            onClick={() => setshowMore(!showMore)}
-            className="show_more_details"
-          >
-            show {!showMore ? "more" : "less"}
-          </span>
         </div>
 
         <button className="subscribe_btn">Subscribe</button>
       </div>
+
+      <pre className="video_details">
+        {data?.snippet.description}
+        {/* {!showMore ? truncate(videoDes, 100) : videoDes} */}
+      </pre>
+
+      <span
+        onClick={() => setshowMore(!showMore)}
+        className="show_more_details"
+      >
+        show {!showMore ? "more" : "less"}
+      </span>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import Categories from "../../components/Categories";
 import Video from "../../components/video";
-import "../../_app.scss";
+import "./_style.scss";
 import useGetVIdeoData from "../../custom hooks/useGetVIdeoData";
 
 export default function HomeScreen() {
