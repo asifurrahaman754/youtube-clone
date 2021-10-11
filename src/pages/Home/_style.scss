@@ -14,6 +14,10 @@
     padding-bottom: 4rem;
     justify-items: center;
 
+    @media (min-width: 570px) {
+      padding: 1rem;
+    }
+
     .error_msg {
       font-size: 1rem;
       text-align: center;

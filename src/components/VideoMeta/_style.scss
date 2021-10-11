@@ -1,13 +1,13 @@
 .videoMeta_container {
   .video_title {
     margin-top: 1.5rem;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     padding: 0 10px;
   }
 
   .video_info {
     display: flex;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     padding: 0 10px;
 
     .views,
@@ -17,7 +17,7 @@
 
     .video_impression {
       margin-left: auto;
-      font-size: 1rem;
+      font-size: 0.95rem;
       display: flex;
 
       span {
@@ -99,5 +99,14 @@
     padding: 0 15px;
     max-width: 540px;
     white-space: pre-wrap;
+
+    .show_more_details {
+      display: block;
+      text-decoration: none;
+      color: black;
+      font-family: "Roboto";
+      margin-top: 1rem;
+      width: max-content;
+    }
   }
 }

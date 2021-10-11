@@ -22,11 +22,6 @@ export default function WatchScreen() {
       .catch(err => alert(err.message));
   }, [id]);
 
-  const props = {};
-  if (selectedVideoData) {
-    props.data = selectedVideoData;
-  }
-
   return (
     <div className="watchScreen_bg">
       <div className="watch_sc_container">
@@ -39,8 +34,8 @@ export default function WatchScreen() {
             ></iframe>
           </div>
 
-          <VideoMeta {...props} />
-          <Comment {...props} />
+          <VideoMeta data={selectedVideoData} />
+          <Comment data={selectedVideoData} />
         </div>
 
         <div className="suggest_vid_container">

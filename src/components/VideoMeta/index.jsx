@@ -1,17 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import numeral from "numeral";
 import moment from "moment";
+import ShowMore from "react-show-more";
+import request from "../../axios";
 
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
-import { truncate } from "../../Utils";
 import "./_style.scss";
 
 export default function VideoMeta({ data }) {
-  const [showMore, setshowMore] = useState(false);
+  const [currentVideoChannel, setcurrentVideoChannel] = useState(null);
+
+  //get the current video channel data :- subscribe, channel dp
+  useEffect(() => {
+    data &&
+      request("/channels", {
+        params: {
+          part: "snippet,contentDetails,statistics",
+          id: data?.snippet.channelId,
+        },
+      })
+        .then(res => setcurrentVideoChannel(res.data.items[0]))
+        .catch(err => alert(err.message));
+  }, [data?.snippet.channelId]);
 
   return (
     <div className="videoMeta_container">
       <h3 className="video_title">{data?.snippet.title}</h3>
+
       <div className="video_info">
         <span className="views">
           {numeral(data?.statistics.viewCount).format("0,0")} views&nbsp;•
@@ -33,29 +48,33 @@ export default function VideoMeta({ data }) {
 
       <div className="video_middle_info">
         <img
-          src={data?.snippet.thumbnails.medium.url}
+          src={currentVideoChannel?.snippet.thumbnails.medium.url}
           alt="channel image"
           className="channel_icon"
         />
         <div className="channel_data">
           <h5 className="channel_title">{data?.snippet.channelTitle}</h5>
-          <h6 className="channel_sub">2.63K subscribers</h6>
+          <h6 className="channel_sub">
+            {numeral(currentVideoChannel?.statistics.subscriberCount).format(
+              "0.a"
+            )}{" "}
+            subscribers
+          </h6>
         </div>
 
         <button className="subscribe_btn">Subscribe</button>
       </div>
 
       <pre className="video_details">
-        {data?.snippet.description}
-        {/* {!showMore ? truncate(videoDes, 100) : videoDes} */}
+        <ShowMore
+          lines={3}
+          more="Show more"
+          less="Show less"
+          anchorClass="show_more_details"
+        >
+          {data?.snippet.description}
+        </ShowMore>
       </pre>
-
-      <span
-        onClick={() => setshowMore(!showMore)}
-        className="show_more_details"
-      >
-        show {!showMore ? "more" : "less"}
-      </span>
     </div>
   );
 }
