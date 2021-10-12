@@ -18,6 +18,7 @@ export default function Header({ showinDesktop }) {
   const login = () => {
     loginWithGoogle()
       .then(user => {
+        console.log(user);
         dispatch(
           setuser({
             id: user.user.accessToken,
@@ -67,11 +68,7 @@ export default function Header({ showinDesktop }) {
                 Sign in
               </button>
             ) : (
-              <img
-                src={user?.photo}
-                alt="user profile"
-                className="user_image"
-              />
+              <img src={user?.photo} alt="user" className="user_image" />
             )}
           </div>
         </>

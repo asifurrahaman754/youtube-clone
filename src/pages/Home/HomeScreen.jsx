@@ -12,19 +12,15 @@ export default function HomeScreen() {
   const [error, seterror] = useState("");
   const [nextPage, setnextPage] = useState("");
   const [loading, setloading] = useState(true);
-  const messagesEndRef = useRef(null);
-
+  const videoContainer = useRef(null);
+  const el = videoContainer.current;
   const activeCategory = useSelector(state => state.youtube.activeCategory);
-
-  //scrool to the top of the page
-  const scrollToTop = () => {
-    messagesEndRef.current?.scrollTo(0, 0);
-  };
 
   useEffect(() => {
     //change the state directly to delete all the existing videos if we change category
     sethomevideos(homevideos.splice(0, homevideos.length));
-    scrollToTop();
+    //scroll to the top of the page
+    el?.scrollTo(0, 0);
   }, [activeCategory]);
 
   //if user selects any category then get the cat data or get the most popular data
@@ -42,10 +38,21 @@ export default function HomeScreen() {
     setcurrentPage(nextPage);
   };
 
+  useEffect(() => {
+    const scrollEvent = el?.addEventListener("scroll", function () {
+      if (el.scrollHeight - el.clientHeight === el.scrollTop) {
+        setloading(true);
+        loadmore();
+      }
+    });
+
+    return () => el?.removeEventListener("scroll", scrollEvent);
+  }, [loading]);
+
   return (
     <div className="home_content_container">
       <Categories />
-      <div ref={messagesEndRef} className="video_container">
+      <div ref={videoContainer} className="video_container">
         {error && <h5 className="error_msg">{error}</h5>}
 
         {homevideos?.map(item => (
@@ -53,9 +60,8 @@ export default function HomeScreen() {
         ))}
 
         {loading && (
-          <div class="spinner-border text-primary" role="status"></div>
+          <div class="spinner-border spinner text-primary" role="status"></div>
         )}
-        {!error && <button onClick={loadmore}>load more</button>}
       </div>
     </div>
   );

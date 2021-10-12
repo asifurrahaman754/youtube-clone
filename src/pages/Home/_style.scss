@@ -13,18 +13,20 @@
     position: relative;
     padding-bottom: 4rem;
     justify-items: center;
-
-    @media (min-width: 570px) {
-      padding: 1rem;
-    }
+    position: relative;
 
     .error_msg {
       font-size: 1rem;
       text-align: center;
-      position: absolute;
+      position: fixed;
       max-width: 400px;
       margin-top: 1rem;
       font-weight: 400;
+    }
+
+    .spinner {
+      position: fixed;
+      bottom: 1rem;
     }
   }
 }

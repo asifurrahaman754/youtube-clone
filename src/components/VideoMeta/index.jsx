@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+
 import numeral from "numeral";
 import moment from "moment";
 import ShowMore from "react-show-more";
 import request from "../../axios";
+import { useSelector } from "react-redux";
 
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import "./_style.scss";
 
 export default function VideoMeta({ data }) {
   const [currentVideoChannel, setcurrentVideoChannel] = useState(null);
+  const user = useSelector(state => state.youtube.user);
 
   //get the current video channel data :- subscribe, channel dp
   useEffect(() => {
@@ -22,6 +25,18 @@ export default function VideoMeta({ data }) {
         .then(res => setcurrentVideoChannel(res.data.items[0]))
         .catch(err => alert(err.message));
   }, [data?.snippet.channelId]);
+
+  // useEffect(() => {
+  //   request("/subscriptions", {
+  //     params: {
+  //       part: "snippet",
+  //       forChannelId: "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+  //       mine: true,
+  //     },
+  //   })
+  //     .then(res => console.log(res.data))
+  //     .catch(err => alert(err.message));
+  // }, [data?.snippet.channelId]);
 
   return (
     <div className="videoMeta_container">
