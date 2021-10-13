@@ -1,11 +1,34 @@
-import numeral from "numeral";
 import { useState } from "react";
+
+import numeral from "numeral";
 import CommentItem from "./CommentItem";
 import "./_style.scss";
+import useGetComments from "../../custom hooks/useGetComments";
 
 export default function Comment({ data }) {
   const [inputFocus, setinputFocus] = useState(false);
   const [inputValue, setinputValue] = useState("");
+  const [currentPage, setcurrentPage] = useState("");
+  const [nextPage, setnextPage] = useState("");
+  const [comments, setcomments] = useState([]);
+  const [error, seterror] = useState("");
+  const [commentLoad, setcommentLoad] = useState(true);
+
+  //get the comments
+  useGetComments(
+    setcomments,
+    seterror,
+    setnextPage,
+    setcommentLoad,
+    currentPage,
+    comments
+  );
+
+  //load more comments
+  const loadMore = () => {
+    setcommentLoad(true);
+    setcurrentPage(nextPage);
+  };
 
   return (
     <div className="comment_container">
@@ -34,9 +57,23 @@ export default function Comment({ data }) {
         )}
       </div>
 
-      {[...Array(5)].map(item => (
-        <CommentItem />
-      ))}
+      {!comments.length ||
+        comments.map(item => <CommentItem key={item.id} data={item} />)}
+
+      {error && <p className="text-center">{error}</p>}
+
+      {!commentLoad || (
+        <div
+          class="spinner-border text-primary d-block m-auto"
+          role="status"
+        ></div>
+      )}
+
+      {!comments.length || (
+        <button className="loadMore_comment" onClick={loadMore}>
+          More comments
+        </button>
+      )}
     </div>
   );
 }

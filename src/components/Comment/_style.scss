@@ -43,6 +43,16 @@
       pointer-events: auto !important;
     }
   }
+
+  .loadMore_comment {
+    margin: 1rem auto;
+    display: block;
+    border: none;
+    cursor: pointer;
+    padding: 6px 15px;
+    background: #167ac6;
+    color: white;
+  }
 }
 
 .comment_wrapper {

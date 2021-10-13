@@ -8,9 +8,9 @@ import useGetVIdeoData from "../../custom hooks/useGetVIdeoData";
 
 export default function HomeScreen() {
   const [currentPage, setcurrentPage] = useState("");
+  const [nextPage, setnextPage] = useState("");
   const [homevideos, sethomevideos] = useState([]);
   const [error, seterror] = useState("");
-  const [nextPage, setnextPage] = useState("");
   const [loading, setloading] = useState(true);
   const videoContainer = useRef(null);
   const el = videoContainer.current;
