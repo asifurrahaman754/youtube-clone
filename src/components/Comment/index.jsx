@@ -1,9 +1,13 @@
 import { useState } from "react";
 
+import { useParams } from "react-router";
+import { useSelector } from "react-redux";
+
 import numeral from "numeral";
 import CommentItem from "./CommentItem";
 import "./_style.scss";
-import useGetComments from "../../custom hooks/useGetComments";
+import GetComments from "../../custom hooks/useGetComments";
+import request from "../../axios";
 
 export default function Comment({ data }) {
   const [inputFocus, setinputFocus] = useState(false);
@@ -14,8 +18,12 @@ export default function Comment({ data }) {
   const [error, seterror] = useState("");
   const [commentLoad, setcommentLoad] = useState(true);
 
+  const { id } = useParams();
+  const { id: accessToken, photo } = useSelector(state => state.youtube.user);
+
   //get the comments
-  useGetComments(
+  GetComments(
+    id,
     setcomments,
     seterror,
     setnextPage,
@@ -30,17 +38,38 @@ export default function Comment({ data }) {
     setcurrentPage(nextPage);
   };
 
+  //post new comment
+  const postComment = () => {
+    const obj = {
+      snippet: {
+        videoId: id,
+        topLevelComment: {
+          snippet: {
+            textOriginal: inputValue,
+          },
+        },
+      },
+    };
+
+    request
+      .post("/commentThreads", JSON.stringify(obj), {
+        params: {
+          part: "snippet",
+          videoId: id,
+          access_token: accessToken,
+        },
+      })
+      .then(res => console.log("new com", res.data))
+      .catch(err => alert(err.message));
+  };
+
   return (
     <div className="comment_container">
       <span className="total_comment">
         {numeral(data?.statistics.commentCount).format("0,0")} Comments
       </span>
       <div className="comment_input">
-        <img
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
-          alt=""
-          className="channel_img"
-        />
+        <img src={photo && photo} alt="" className="channel_img" />
         <input
           placeholder="Add a public comment..."
           type="text"
@@ -51,7 +80,10 @@ export default function Comment({ data }) {
         />
 
         {inputFocus && (
-          <button className={`comment_sub ${inputValue && "btn_active"}`}>
+          <button
+            onClick={postComment}
+            className={`comment_sub ${inputValue && "btn_active"}`}
+          >
             comment
           </button>
         )}

@@ -15,7 +15,6 @@ export default function Video({ item }) {
   const [duration, setduration] = useState();
   const history = useHistory();
   const activeCategory = useSelector(state => state.youtube.activeCategory);
-
   const {
     snippet: {
       channelId,
@@ -26,11 +25,11 @@ export default function Video({ item }) {
     },
   } = item;
 
+  const seconds = moment.duration(duration).asSeconds();
+  const ytduration = moment.utc(seconds * 1000).format("mm:ss");
   const videId = activeCategory ? item.id.videoId : item.id;
 
-  const seconds = moment.duration(duration).asSeconds();
-  const _duration = moment.utc(seconds * 1000).format("mm:ss");
-
+  //get the video views and duration
   useEffect(() => {
     request("/videos", {
       params: {
@@ -45,6 +44,7 @@ export default function Video({ item }) {
       .catch(err => console.log(err));
   }, [videId]);
 
+  //get the channel dp
   useEffect(() => {
     request("/channels", {
       params: {
@@ -66,7 +66,7 @@ export default function Video({ item }) {
     <div className="video_wrap" onClick={handleVideoClick}>
       <div className="video_img_wrap">
         <LazyLoadImage src={medium?.url} effect="blur" alt="video image" />
-        <span className="vid_duration">{_duration}</span>
+        <span className="vid_duration">{ytduration}</span>
       </div>
 
       <div className="video_details_wrap">

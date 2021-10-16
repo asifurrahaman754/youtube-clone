@@ -38,6 +38,7 @@ export default function HomeScreen() {
     setcurrentPage(nextPage);
   };
 
+  //if user scrolls to the bottom then load more video
   useEffect(() => {
     const scrollEvent = el?.addEventListener("scroll", function () {
       if (el.scrollHeight - el.clientHeight === el.scrollTop) {

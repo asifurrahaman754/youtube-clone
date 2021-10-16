@@ -1,10 +1,13 @@
 .video_horizantal_wrapper {
   display: flex;
   margin-bottom: 1rem;
+  cursor: pointer;
+  text-decoration: none;
 
   .video_img_wrap {
     position: relative;
     max-width: 200px;
+    height: max-content;
 
     .lazy-load-image-background {
       width: 100%;

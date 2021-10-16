@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-import { useParams } from "react-router";
 import request from "../axios";
 
-export default function useGetComments(
+export default function GetComments(
+  id,
   setcomments,
   seterror,
   setnextPage,
@@ -11,8 +11,6 @@ export default function useGetComments(
   currentPage,
   comments
 ) {
-  const { id } = useParams();
-
   useEffect(() => {
     request("/commentThreads", {
       params: {

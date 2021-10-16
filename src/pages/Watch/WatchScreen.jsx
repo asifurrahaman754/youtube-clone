@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import "./_style.scss";
@@ -6,11 +6,19 @@ import VideoMeta from "../../components/VideoMeta";
 import Comment from "../../components/Comment";
 import VideoHorizantal from "../../components/VidHorizantal";
 import request from "../../axios";
+import GetVidHorizantal from "../../custom hooks/useGetVidHorizantal";
 
 export default function WatchScreen() {
   const [selectedVideoData, setselectedVideoData] = useState(null);
+  const [relatedVideos, setrelatedVideos] = useState([]);
+  const [currentPage, setcurrentPage] = useState("");
+  const [nextPage, setnextPage] = useState("");
+  const [relatedVidLoad, setrelatedVidLoad] = useState(true);
+  const [error, seterror] = useState("");
   const { id } = useParams();
+  const videoHContainer = useRef(null);
 
+  //get the data of the specific selected video
   useEffect(() => {
     request("/videos", {
       params: {
@@ -20,10 +28,28 @@ export default function WatchScreen() {
     })
       .then(res => setselectedVideoData(res.data.items[0]))
       .catch(err => alert(err.message));
+    videoHContainer?.current.scrollIntoView();
   }, [id]);
 
+  //get the related videos
+  GetVidHorizantal(
+    id,
+    setrelatedVideos,
+    seterror,
+    setnextPage,
+    setrelatedVidLoad,
+    currentPage,
+    relatedVideos
+  );
+
+  //load more related videos
+  const loadMore = () => {
+    setrelatedVidLoad(true);
+    setcurrentPage(nextPage);
+  };
+
   return (
-    <div className="watchScreen_bg">
+    <div id="watchScreen" ref={videoHContainer} className="watchScreen_bg">
       <div className="watch_sc_container">
         <div className="video_container">
           <div className="video_wrap">
@@ -39,9 +65,29 @@ export default function WatchScreen() {
         </div>
 
         <div className="suggest_vid_container">
-          {[...Array(10)].map(item => (
-            <VideoHorizantal />
-          ))}
+          {!relatedVideos.length ||
+            relatedVideos.map((item, i) => (
+              <VideoHorizantal
+                data={item}
+                key={item.etag}
+                setrelatedVideos={setrelatedVideos}
+              />
+            ))}
+
+          {!relatedVidLoad || (
+            <div
+              class="spinner-border text-primary d-block m-auto"
+              role="status"
+            ></div>
+          )}
+
+          {!error || <p>{error}</p>}
+
+          {!relatedVideos.length || (
+            <button className="loadMore_videos" onClick={loadMore}>
+              More videos
+            </button>
+          )}
         </div>
       </div>
     </div>

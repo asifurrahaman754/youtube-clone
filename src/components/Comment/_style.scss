@@ -5,6 +5,16 @@
   border-radius: 50px;
 }
 
+@mixin loadMoreStyle {
+  margin: 1rem auto;
+  display: block;
+  border: none;
+  cursor: pointer;
+  padding: 6px 15px;
+  background: #167ac6;
+  color: white;
+}
+
 .comment_container {
   padding: 1rem 10px 0 10px;
   border-top: 1px solid #6c757d2b;
@@ -45,13 +55,7 @@
   }
 
   .loadMore_comment {
-    margin: 1rem auto;
-    display: block;
-    border: none;
-    cursor: pointer;
-    padding: 6px 15px;
-    background: #167ac6;
-    color: white;
+    @include loadMoreStyle();
   }
 }
 
