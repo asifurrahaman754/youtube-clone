@@ -8,6 +8,7 @@ import { useHistory } from "react-router";
 import "./_style.scss";
 import { truncate } from "../../Utils";
 import request from "../../axios";
+import GetChannelDp from "../../custom hooks/useGetChannelDp";
 
 export default function VideoHorizantal({
   setrelatedVideos,
@@ -18,7 +19,8 @@ export default function VideoHorizantal({
 }) {
   const [views, setviews] = useState();
   const [duration, setduration] = useState();
-  const { publishedAt, channelTitle, title, thumbnails } = snippet;
+  const [channelthumbnail, setchannelthumbnail] = useState();
+  const { channelId, publishedAt, channelTitle, title, thumbnails } = snippet;
   const history = useHistory();
 
   const seconds = moment.duration(duration).asSeconds();
@@ -38,6 +40,9 @@ export default function VideoHorizantal({
       })
       .catch(err => console.log(err));
   }, [videoId]);
+
+  //get the channel dp
+  GetChannelDp(channelId, setchannelthumbnail);
 
   const handleClick = () => {
     setrelatedVideos([]);
@@ -60,11 +65,21 @@ export default function VideoHorizantal({
       </div>
 
       <div className="horiz_vid_details">
-        <h3 className="vid_title">{truncate(title, 45)}</h3>
-        <span className="vid_channel_title">{channelTitle}</span>
-        <div className="video_stats">
-          <span className="views">{numeral(views).format("0.a")} views •</span>
-          <span className="time"> {moment(publishedAt).fromNow()}</span>
+        <LazyLoadImage
+          src={channelthumbnail?.url}
+          effect="blur"
+          alt=""
+          className="vidH_channel_dp"
+        />
+        <div className="vid_details">
+          <h3 className="vid_title">{truncate(title, 45)}</h3>
+          <span className="vid_channel_title">{channelTitle}</span>
+          <div className="video_stats">
+            <span className="views">
+              {numeral(views).format("0.a")} views •
+            </span>
+            <span className="time"> {moment(publishedAt).fromNow()}</span>
+          </div>
         </div>
       </div>
     </a>

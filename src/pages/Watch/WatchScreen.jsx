@@ -28,7 +28,6 @@ export default function WatchScreen() {
     })
       .then(res => setselectedVideoData(res.data.items[0]))
       .catch(err => alert(err.message));
-    videoHContainer?.current.scrollIntoView();
   }, [id]);
 
   //get the related videos
@@ -54,6 +53,8 @@ export default function WatchScreen() {
         <div className="video_container">
           <div className="video_wrap">
             <iframe
+              allow="fullscreen"
+              allowfullscreen="allowfullscreen"
               width="420"
               height="315"
               src={`https://www.youtube.com/embed/${id}?autoplay=1`}
@@ -66,10 +67,10 @@ export default function WatchScreen() {
 
         <div className="suggest_vid_container">
           {!relatedVideos.length ||
-            relatedVideos.map((item, i) => (
+            relatedVideos.map(item => (
               <VideoHorizantal
                 data={item}
-                key={item.etag}
+                key={item.id.videoId}
                 setrelatedVideos={setrelatedVideos}
               />
             ))}

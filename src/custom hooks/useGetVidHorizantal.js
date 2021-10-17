@@ -11,28 +11,25 @@ export default function GetVidHorizantal(
   currentPage,
   relatedVideos
 ) {
-  //   const { id } = useParams();
-
   useEffect(() => {
     request("/search", {
       params: {
         part: "snippet",
         relatedToVideoId: id,
         type: "video",
-        videoType: "any",
-        videoDefinition: "any",
-        maxResults: 10,
+        pageToken: currentPage,
       },
     })
       .then(res => {
         seterror("");
         setrelatedVidLoad(false);
-        setnextPage(res.data.nextPageToken);
         setrelatedVideos(
           currentPage
             ? [...relatedVideos, ...res.data.items].filter(item => item.snippet)
             : res.data.items.filter(item => item.snippet)
         );
+        console.log("related vid", res.data);
+        setnextPage(res.data.nextPageToken);
       })
       .catch(err => {
         setrelatedVidLoad(false);

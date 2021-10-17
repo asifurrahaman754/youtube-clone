@@ -32,7 +32,7 @@ export default function GetComments(
         setcommentLoad(false);
         seterror("Failed getting the comments. " + err.message);
       });
-  }, [currentPage]);
+  }, [currentPage, id]);
 
   return null;
 }

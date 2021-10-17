@@ -8,6 +8,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import request from "../../axios";
 import { truncate } from "../../Utils";
 import "./_video.scss";
+import GetChannelDp from "../../custom hooks/useGetChannelDp";
 
 export default function Video({ item }) {
   const [channelthumbnail, setchannelthumbnail] = useState();
@@ -45,18 +46,7 @@ export default function Video({ item }) {
   }, [videId]);
 
   //get the channel dp
-  useEffect(() => {
-    request("/channels", {
-      params: {
-        part: "snippet",
-        id: channelId,
-      },
-    })
-      .then(res => {
-        setchannelthumbnail(res.data.items[0].snippet.thumbnails.default);
-      })
-      .catch(err => console.log(err));
-  }, [channelId]);
+  GetChannelDp(channelId, setchannelthumbnail);
 
   const handleVideoClick = () => {
     history.push(`/video/${videId}`);

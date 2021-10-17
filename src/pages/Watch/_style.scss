@@ -10,11 +10,11 @@
     width: 100%;
     gap: 1.5rem;
     padding: 1rem;
-    flex-wrap: wrap;
     max-width: 1400px;
     margin: 0 auto;
 
-    @media (max-width: $breakpoint-small) {
+    @media (max-width: 930px) {
+      flex-direction: column;
       padding: 0rem;
     }
 
@@ -48,6 +48,7 @@
       flex-direction: column;
       flex: 1;
       height: fit-content;
+      padding: 0 10px;
 
       .loadMore_videos {
         @include loadMoreStyle;
