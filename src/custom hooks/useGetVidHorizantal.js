@@ -17,6 +17,7 @@ export default function GetVidHorizantal(
         part: "snippet",
         relatedToVideoId: id,
         type: "video",
+        maxResults: 20,
         pageToken: currentPage,
       },
     })

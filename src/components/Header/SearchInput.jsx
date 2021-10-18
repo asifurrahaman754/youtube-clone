@@ -1,14 +1,28 @@
 import { useRef, useEffect } from "react";
+import { useHistory } from "react-router";
 
 export default function SearchInput({ hideSearch }) {
   const inputRef = useRef(null);
+  const history = useHistory();
 
   useEffect(() => {
     hideSearch || inputRef.current.focus();
   }, []);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (!inputRef.current.value) {
+      return;
+    }
+    history.push(`/search/${inputRef.current.value}`);
+  };
+
   return (
-    <form className={hideSearch ? "header_form hide_search" : "header_form"}>
+    <form
+      onSubmit={handleSubmit}
+      className={hideSearch ? "header_form hide_search" : "header_form"}
+    >
       <input
         ref={inputRef}
         type="text"

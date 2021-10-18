@@ -15,6 +15,7 @@ import { setuser } from "./redux/youtubeSlice";
 import { getUserInitialLoad } from "./firebase";
 import WatchScreen from "./pages/Watch/WatchScreen";
 import SidebarMobile from "./components/Sidebar/SidebarMobile";
+import Search from "./components/Search";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ function App() {
         <Route exact path="/video/:id">
           <Header showinDesktop={true} />
         </Route>
-        <Route exact path="/search">
+        <Route exact path="/search/:query">
           <Header />
         </Route>
       </Switch>
@@ -62,9 +63,9 @@ function App() {
           <Route exact path="/video/:id">
             <WatchScreen />
           </Route>
-          <Route exact path="/search">
+          <Route exact path="/search/:query">
             <Sidebar />
-            <h1>search results</h1>
+            <Search />
           </Route>
           <Route>
             <Redirect to="/" />

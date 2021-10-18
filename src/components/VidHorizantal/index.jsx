@@ -11,18 +11,27 @@ import request from "../../axios";
 import GetChannelDp from "../../custom hooks/useGetChannelDp";
 
 export default function VideoHorizantal({
+  searchScrn,
   setrelatedVideos,
   data: {
-    id: { videoId },
+    id: { kind, videoId },
     snippet,
   },
 }) {
   const [views, setviews] = useState();
   const [duration, setduration] = useState();
   const [channelthumbnail, setchannelthumbnail] = useState();
-  const { channelId, publishedAt, channelTitle, title, thumbnails } = snippet;
+  const {
+    description,
+    channelId,
+    publishedAt,
+    channelTitle,
+    title,
+    thumbnails,
+  } = snippet;
   const history = useHistory();
 
+  const isChannel = kind == "youtube#channel";
   const seconds = moment.duration(duration).asSeconds();
   const ytduration = moment.utc(seconds * 1000).format("mm:ss");
 
@@ -45,23 +54,24 @@ export default function VideoHorizantal({
   GetChannelDp(channelId, setchannelthumbnail);
 
   const handleClick = () => {
-    setrelatedVideos([]);
+    setrelatedVideos && setrelatedVideos([]);
     history.push(`/video/${videoId}`);
   };
 
   return (
     <a
       href="#watchScreen"
-      className="video_horizantal_wrapper"
-      onClick={handleClick}
+      className={`video_horizantal_wrapper ${searchScrn && "wrap_max"}`}
+      onClick={isChannel || handleClick}
     >
-      <div className="video_img_wrap">
+      <div className={`video_img_wrap ${searchScrn && "img_big"}`}>
         <LazyLoadImage
           src={thumbnails.medium.url}
+          className={`${isChannel && "thumbRound"}`}
           effect="blur"
           alt="related video thumbnail"
         />
-        <span className="vid_duration">{ytduration}</span>
+        {isChannel || <span className="vid_duration">{ytduration}</span>}
       </div>
 
       <div className="horiz_vid_details">
@@ -72,14 +82,33 @@ export default function VideoHorizantal({
           className="vidH_channel_dp"
         />
         <div className="vid_details">
-          <h3 className="vid_title">{truncate(title, 45)}</h3>
-          <span className="vid_channel_title">{channelTitle}</span>
-          <div className="video_stats">
-            <span className="views">
-              {numeral(views).format("0.a")} views •
-            </span>
-            <span className="time"> {moment(publishedAt).fromNow()}</span>
-          </div>
+          <h3 className={`vid_title ${searchScrn && "vid_title_Search"}`}>
+            {truncate(title, 45)}
+          </h3>
+          {searchScrn && (
+            <LazyLoadImage
+              src={channelthumbnail?.url}
+              effect="blur"
+              alt=""
+              className="vidH_channel_dp"
+            />
+          )}
+
+          {!isChannel ? (
+            <>
+              <span className="vid_channel_title">{channelTitle}</span>
+              <div
+                className={`video_stats ${searchScrn && "video_stats_search"}`}
+              >
+                <span className="views">
+                  {numeral(views).format("0.a")} views •
+                </span>
+                <span className="time"> {moment(publishedAt).fromNow()}</span>
+              </div>
+            </>
+          ) : (
+            <p className="channel_desc">{description}</p>
+          )}
         </div>
       </div>
     </a>
