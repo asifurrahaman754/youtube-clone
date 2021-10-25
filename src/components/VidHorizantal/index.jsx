@@ -20,7 +20,6 @@ export default function VideoHorizantal({
 }) {
   const [views, setviews] = useState();
   const [duration, setduration] = useState();
-  const [channelthumbnail, setchannelthumbnail] = useState();
   const {
     description,
     channelId,
@@ -33,7 +32,7 @@ export default function VideoHorizantal({
 
   const isChannel = kind == "youtube#channel";
   const seconds = moment.duration(duration).asSeconds();
-  const ytduration = moment.utc(seconds * 1000).format("mm:ss");
+  const ytduration = moment.utc(seconds * 1000).format("HH:mm:ss");
 
   //get the video views and duration
   useEffect(() => {
@@ -51,18 +50,21 @@ export default function VideoHorizantal({
   }, [videoId]);
 
   //get the channel dp
-  GetChannelDp(channelId, setchannelthumbnail);
+  const { currentVideoChannel } = GetChannelDp(channelId);
 
   const handleClick = () => {
-    setrelatedVideos && setrelatedVideos([]);
-    history.push(`/video/${videoId}`);
+    if (isChannel) {
+      history.push(`/channel/${channelId}`);
+    } else {
+      setrelatedVideos && setrelatedVideos([]);
+      history.push(`/video/${videoId}`);
+    }
   };
 
   return (
     <a
       href="#watchScreen"
       className={`video_horizantal_wrapper ${searchScrn && "wrap_max"}`}
-      onClick={isChannel || handleClick}
     >
       <div className={`video_img_wrap ${searchScrn && "img_big"}`}>
         <LazyLoadImage
@@ -70,29 +72,37 @@ export default function VideoHorizantal({
           className={`${isChannel && "thumbRound"}`}
           effect="blur"
           alt="related video thumbnail"
+          onClick={handleClick}
         />
         {isChannel || <span className="vid_duration">{ytduration}</span>}
       </div>
 
       <div className="horiz_vid_details">
         <LazyLoadImage
-          src={channelthumbnail?.url}
+          src={currentVideoChannel?.snippet.thumbnails.medium.url}
           effect="blur"
           alt=""
-          className="vidH_channel_dp"
+          className={`vidH_channel_dp ${isChannel && "hideInMobile"}`}
+          onClick={() => history.push(`/channel/${channelId}`)}
         />
         <div className="vid_details">
-          <h3 className={`vid_title ${searchScrn && "vid_title_Search"}`}>
+          <h3
+            onClick={handleClick}
+            className={`vid_title ${searchScrn && "vid_title_Search"}`}
+          >
             {truncate(title, 45)}
           </h3>
-          {searchScrn && (
-            <LazyLoadImage
-              src={channelthumbnail?.url}
-              effect="blur"
-              alt=""
-              className="vidH_channel_dp"
-            />
-          )}
+          {searchScrn
+            ? isChannel || (
+                <LazyLoadImage
+                  src={currentVideoChannel?.snippet.thumbnails.medium.url}
+                  effect="blur"
+                  alt=""
+                  className="vidH_channel_dp"
+                  onClick={() => history.push(`/channel/${channelId}`)}
+                />
+              )
+            : null}
 
           {!isChannel ? (
             <>

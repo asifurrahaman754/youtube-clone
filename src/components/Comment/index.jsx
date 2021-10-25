@@ -14,8 +14,8 @@ export default function Comment({ data }) {
   const [inputValue, setinputValue] = useState("");
   const [currentPage, setcurrentPage] = useState("");
   const [nextPage, setnextPage] = useState("");
-  const [comments, setcomments] = useState([]);
   const [error, seterror] = useState("");
+  const [comments, setcomments] = useState([]);
   const [commentLoad, setcommentLoad] = useState(true);
 
   const { id } = useParams();

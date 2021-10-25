@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdApps } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { BsPeopleCircle } from "react-icons/bs";
-import { useHistory } from "react-router";
 
 import { setshowSidebar, setuser } from "../../redux/youtubeSlice";
 import SearchInput from "./SearchInput";

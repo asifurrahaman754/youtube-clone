@@ -16,6 +16,7 @@ import { getUserInitialLoad } from "./firebase";
 import WatchScreen from "./pages/Watch/WatchScreen";
 import SidebarMobile from "./components/Sidebar/SidebarMobile";
 import Search from "./components/Search";
+import Channel from "./pages/Channel";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,9 @@ function App() {
         <Route exact path="/search/:query">
           <Header />
         </Route>
+        <Route exact path="/channel/:channelid">
+          <Header />
+        </Route>
       </Switch>
 
       <div className="app_container">
@@ -66,6 +70,10 @@ function App() {
           <Route exact path="/search/:query">
             <Sidebar />
             <Search />
+          </Route>
+          <Route exact path="/channel/:channelid">
+            <Sidebar />
+            <Channel />
           </Route>
           <Route>
             <Redirect to="/" />

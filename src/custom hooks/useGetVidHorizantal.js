@@ -29,7 +29,6 @@ export default function GetVidHorizantal(
             ? [...relatedVideos, ...res.data.items].filter(item => item.snippet)
             : res.data.items.filter(item => item.snippet)
         );
-        console.log("related vid", res.data);
         setnextPage(res.data.nextPageToken);
       })
       .catch(err => {

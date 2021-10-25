@@ -4,17 +4,18 @@ import numeral from "numeral";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useDispatch } from "react-redux";
 
 import request from "../../axios";
 import { truncate } from "../../Utils";
 import "./_video.scss";
 import GetChannelDp from "../../custom hooks/useGetChannelDp";
 
-export default function Video({ item }) {
-  const [channelthumbnail, setchannelthumbnail] = useState();
+export default function Video({ item, channelScrn }) {
   const [views, setviews] = useState();
   const [duration, setduration] = useState();
   const history = useHistory();
+  const dispatch = useDispatch();
   const activeCategory = useSelector(state => state.youtube.activeCategory);
   const {
     snippet: {
@@ -27,8 +28,9 @@ export default function Video({ item }) {
   } = item;
 
   const seconds = moment.duration(duration).asSeconds();
-  const ytduration = moment.utc(seconds * 1000).format("mm:ss");
-  const videId = activeCategory ? item.id.videoId : item.id;
+  const ytduration = moment.utc(seconds * 1000).format("HH:mm:ss");
+  let videId = activeCategory ? item.id.videoId : item.id;
+  channelScrn && (videId = item.snippet.resourceId.videoId);
 
   //get the video views and duration
   useEffect(() => {
@@ -46,29 +48,38 @@ export default function Video({ item }) {
   }, [videId]);
 
   //get the channel dp
-  GetChannelDp(channelId, setchannelthumbnail);
+  const { currentVideoChannel } = GetChannelDp(channelId);
 
   const handleVideoClick = () => {
     history.push(`/video/${videId}`);
   };
 
+  const channelClick = () => {
+    history.push(`/channel/${channelId}`);
+  };
+
   return (
-    <div className="video_wrap" onClick={handleVideoClick}>
-      <div className="video_img_wrap">
+    <div className="video_wrap">
+      <div className="video_img_wrap" onClick={handleVideoClick}>
         <LazyLoadImage src={medium?.url} effect="blur" alt="video image" />
         <span className="vid_duration">{ytduration}</span>
       </div>
 
       <div className="video_details_wrap">
-        <LazyLoadImage
-          src={channelthumbnail?.url}
-          effect="blur"
-          alt={channelTitle}
-        />
+        {channelScrn || (
+          <LazyLoadImage
+            src={currentVideoChannel?.snippet.thumbnails.medium.url}
+            effect="blur"
+            alt={channelTitle}
+            onClick={channelClick}
+          />
+        )}
 
         <div className="vid_details">
-          <h3 className="video_title">{truncate(title, 60)}</h3>
-          <h4 className="channel_name">{channelTitle}</h4>
+          <h3 onClick={handleVideoClick} className="video_title">
+            {truncate(title, 60)}
+          </h3>
+          {channelScrn || <h4 className="channel_name">{channelTitle}</h4>}
           <div className="video_info">
             <span className="views">
               {numeral(views).format("0.a")} views •

@@ -20,16 +20,3 @@ export const Sidebar = [
     img: "/assets/library.svg",
   },
 ];
-
-export const categories = [
-  "All",
-  "React",
-  "Angualr",
-  "C#",
-  "javascript",
-  "python",
-  "Dodgecoin",
-  "React native",
-  "News",
-  "entertainment",
-];

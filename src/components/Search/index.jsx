@@ -9,6 +9,7 @@ export default function Search() {
   const [currentPage, setcurrentPage] = useState("");
   const [nextPage, setnextPage] = useState("");
   const [error, seterror] = useState("");
+  const [noresult, setnoresult] = useState("");
   const [searchLoad, setsearchLoad] = useState(true);
 
   const videoWrapRef = useRef(null);
@@ -34,10 +35,16 @@ export default function Search() {
     })
       .then(res => {
         setsearchLoad(false);
-        setsearchresults(
-          currentPage ? [...searchresults, ...res.data.items] : res.data.items
-        );
-        setnextPage(res.data.nextPageToken);
+        if (!res.data.items.length) {
+          setsearchresults([]);
+          setnoresult("No result found. Try a different search");
+        } else {
+          setnoresult("");
+          setsearchresults(
+            currentPage ? [...searchresults, ...res.data.items] : res.data.items
+          );
+          setnextPage(res.data.nextPageToken);
+        }
       })
       .catch(err => {
         console.log(err.message);
@@ -55,6 +62,7 @@ export default function Search() {
   return (
     <div ref={videoWrapRef} className="searchResults_container">
       {!error || <p className="text-center">{error}</p>}
+      {!noresult || <p className="text-center">{noresult}</p>}
 
       {!searchLoad || (
         <div

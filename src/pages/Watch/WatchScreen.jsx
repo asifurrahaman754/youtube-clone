@@ -54,7 +54,7 @@ export default function WatchScreen() {
           <div className="video_wrap">
             <iframe
               allow="fullscreen"
-              allowfullscreen="allowfullscreen"
+              allowFullScreen="allowFullScreen"
               width="420"
               height="315"
               src={`https://www.youtube.com/embed/${id}?autoplay=1`}

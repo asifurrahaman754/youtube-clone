@@ -26,8 +26,18 @@ export default function useGetVIdeoData(
         .then(res => {
           setloading(false);
           setnextPage(res.data.nextPageToken);
+          //check wheather the item is not channel
           sethomevideos(
-            currentPage ? [...homevideos, ...res.data.items] : res.data.items
+            currentPage
+              ? [
+                  ...homevideos,
+                  ...res.data.items.filter(
+                    item => item.id.kind !== "youtube#channel"
+                  ),
+                ]
+              : res.data.items.filter(
+                  item => item.id.kind !== "youtube#channel"
+                )
           );
         })
         .catch(err => {

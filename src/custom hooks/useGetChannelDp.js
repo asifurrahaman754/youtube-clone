@@ -1,19 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import request from "../axios";
 
-export default function GetChannelDp(channelId, setchannelthumbnail) {
+export default function GetChannelDp(channelId) {
+  const [currentVideoChannel, setcurrentVideoChannel] = useState(null);
+
   useEffect(() => {
     request("/channels", {
       params: {
-        part: "snippet",
+        part: "snippet, contentDetails, statistics",
         id: channelId,
       },
     })
       .then(res => {
-        setchannelthumbnail(res.data.items[0].snippet.thumbnails.default);
+        setcurrentVideoChannel(res.data.items[0]);
       })
       .catch(err => console.log(err));
   }, [channelId]);
 
-  return null;
+  return { currentVideoChannel };
 }

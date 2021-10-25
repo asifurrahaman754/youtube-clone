@@ -1,42 +1,17 @@
-import { useEffect, useState } from "react";
-
+import { useHistory } from "react-router";
 import numeral from "numeral";
 import moment from "moment";
 import ShowMore from "react-show-more";
-import request from "../../axios";
-import { useSelector } from "react-redux";
 
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import "./_style.scss";
+import GetChannelDp from "../../custom hooks/useGetChannelDp";
 
 export default function VideoMeta({ data }) {
-  const [currentVideoChannel, setcurrentVideoChannel] = useState(null);
-  const user = useSelector(state => state.youtube.user);
-
+  const history = useHistory();
+  console.log(data);
   //get the current video channel data :- subscribe, channel dp
-  useEffect(() => {
-    data &&
-      request("/channels", {
-        params: {
-          part: "snippet,contentDetails,statistics",
-          id: data?.snippet.channelId,
-        },
-      })
-        .then(res => setcurrentVideoChannel(res.data.items[0]))
-        .catch(err => alert(err.message));
-  }, [data?.snippet.channelId]);
-
-  // useEffect(() => {
-  //   request("/subscriptions", {
-  //     params: {
-  //       part: "snippet",
-  //       forChannelId: "UC_x5XG1OV2P6uZZ5FSM9Ttw",
-  //       mine: true,
-  //     },
-  //   })
-  //     .then(res => console.log(res.data))
-  //     .catch(err => alert(err.message));
-  // }, [data?.snippet.channelId]);
+  const { currentVideoChannel } = GetChannelDp(data?.snippet.channelId);
 
   return (
     <div className="videoMeta_container">
@@ -66,9 +41,15 @@ export default function VideoMeta({ data }) {
           src={currentVideoChannel?.snippet.thumbnails.medium.url}
           alt="channel image"
           className="channel_icon"
+          onClick={() => history.push(`/channel/${data?.snippet.channelId}`)}
         />
         <div className="channel_data">
-          <h5 className="channel_title">{data?.snippet.channelTitle}</h5>
+          <h5
+            onClick={() => history.push(`/channel/${data?.snippet.channelId}`)}
+            className="channel_title"
+          >
+            {data?.snippet.channelTitle}
+          </h5>
           <h6 className="channel_sub">
             {numeral(currentVideoChannel?.statistics.subscriberCount).format(
               "0.a"
