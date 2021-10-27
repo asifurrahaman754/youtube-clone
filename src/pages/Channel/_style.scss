@@ -54,7 +54,12 @@
       }
 
       .video_img_wrap {
-        max-width: 220px;
+        width: 40vw;
+
+        .lazy-load-image-loaded {
+          height: 100%;
+          width: inherit;
+        }
       }
     }
   }

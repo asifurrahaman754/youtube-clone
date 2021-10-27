@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import "./_style.scss";
 import VideoMeta from "../../components/VideoMeta";
@@ -49,6 +50,11 @@ export default function WatchScreen() {
 
   return (
     <div id="watchScreen" ref={videoHContainer} className="watchScreen_bg">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{selectedVideoData?.snippet?.title}</title>
+      </Helmet>
+
       <div className="watch_sc_container">
         <div className="video_container">
           <div className="video_wrap">
@@ -56,6 +62,7 @@ export default function WatchScreen() {
               allow="fullscreen"
               allowFullScreen="allowFullScreen"
               width="420"
+              title="current running video"
               height="315"
               src={`https://www.youtube.com/embed/${id}?autoplay=1`}
             ></iframe>

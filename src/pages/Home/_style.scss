@@ -1,19 +1,24 @@
+@import "../../components/Comment/style";
+
 .home_content_container {
   width: 100%;
   overflow: hidden;
   height: 90vh;
 
   .video_container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: 2.5rem 1rem;
     background: #f9f9f9;
     overflow-y: scroll;
     height: 90vh;
     position: relative;
     padding-bottom: 4rem;
-    justify-items: center;
     position: relative;
+
+    .home_video_wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-gap: 2.5rem 1rem;
+      justify-items: center;
+    }
 
     .error_msg {
       font-size: 1rem;
@@ -25,8 +30,13 @@
     }
 
     .spinner {
-      position: fixed;
-      top: 50%;
+      display: block;
+      margin: 2rem auto;
     }
+  }
+
+  .loadMore_videos {
+    @include loadMoreStyle();
+    margin-top: 2.5rem;
   }
 }

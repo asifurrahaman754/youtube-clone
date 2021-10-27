@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useHistory } from "react-router";
 import numeral from "numeral";
 import moment from "moment";
@@ -7,9 +8,9 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import "./_style.scss";
 import GetChannelDp from "../../custom hooks/useGetChannelDp";
 
-export default function VideoMeta({ data }) {
+function VideoMeta({ data }) {
   const history = useHistory();
-  console.log(data);
+
   //get the current video channel data :- subscribe, channel dp
   const { currentVideoChannel } = GetChannelDp(data?.snippet.channelId);
 
@@ -74,3 +75,5 @@ export default function VideoMeta({ data }) {
     </div>
   );
 }
+
+export default memo(VideoMeta);

@@ -25,6 +25,7 @@
       right: 5px;
       font-size: 0.85rem;
       padding: 0px 2px;
+      border-radius: 3px;
     }
   }
 
@@ -43,19 +44,22 @@
 
     .vid_details {
       .video_title {
-        font-size: 1rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.3px;
         font-weight: 600;
       }
 
       .channel_name {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         font-weight: 600;
         letter-spacing: 0.5px;
         color: #606060;
+        margin-bottom: 0;
+        margin-top: 0.5rem;
       }
 
       .video_info {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: #606060;
       }
     }

@@ -12,10 +12,6 @@ export default function SidebarItems({ item }) {
     if (item.name === "Home") {
       history.push("/");
     }
-
-    if (item.name === "Subscription") {
-      history.push("/subscription");
-    }
   };
 
   return (

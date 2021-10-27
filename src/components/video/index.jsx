@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import moment from "moment";
 import numeral from "numeral";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { useDispatch } from "react-redux";
 
 import request from "../../axios";
 import { truncate } from "../../Utils";
 import "./_video.scss";
 import GetChannelDp from "../../custom hooks/useGetChannelDp";
 
-export default function Video({ item, channelScrn }) {
+function Video({ item, channelScrn }) {
+  console.log("video com");
   const [views, setviews] = useState();
   const [duration, setduration] = useState();
   const history = useHistory();
-  const dispatch = useDispatch();
   const activeCategory = useSelector(state => state.youtube.activeCategory);
   const {
     snippet: {
@@ -91,3 +90,5 @@ export default function Video({ item, channelScrn }) {
     </div>
   );
 }
+
+export default memo(Video);

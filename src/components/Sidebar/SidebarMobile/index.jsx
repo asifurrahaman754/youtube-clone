@@ -30,6 +30,7 @@ export default function SidebarMobile() {
             <img
               src="/assets/menuIcon.svg"
               className="menuIcon"
+              alt=""
               onClick={() => dispatch(setshowSidebar(false))}
             />
             <img src="/assets/logo.svg" alt="youtube logo" className="logo" />

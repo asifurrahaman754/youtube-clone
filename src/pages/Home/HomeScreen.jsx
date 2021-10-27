@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 import Categories from "../../components/Categories";
 import Video from "../../components/video";
@@ -12,6 +13,7 @@ export default function HomeScreen() {
   const [homevideos, sethomevideos] = useState([]);
   const [error, seterror] = useState("");
   const [loading, setloading] = useState(true);
+  const [freezeCatg, setfreezeCatg] = useState(false);
   const videoContainer = useRef(null);
   const el = videoContainer.current;
   const activeCategory = useSelector(state => state.youtube.activeCategory);
@@ -30,38 +32,51 @@ export default function HomeScreen() {
     homevideos,
     setnextPage,
     seterror,
-    setloading
+    setloading,
+    setfreezeCatg
   );
 
-  const loadmore = () => {
+  const loadMore = () => {
     setloading(true);
     setcurrentPage(nextPage);
   };
 
   //if user scrolls to the bottom then load more video
-  useEffect(() => {
-    const scrollEvent = el?.addEventListener("scroll", function () {
-      if (el.scrollHeight - el.clientHeight === el.scrollTop) {
-        setloading(true);
-        loadmore();
-      }
-    });
+  // useEffect(() => {
+  //   const scrollEvent = el?.addEventListener("scroll", function () {
+  //     if (el.scrollHeight - el.clientHeight === el.scrollTop) {
+  //       setloading(true);
+  //       loadmore();
+  //     }
+  //   });
 
-    return () => el?.removeEventListener("scroll", scrollEvent);
-  }, [loading]);
+  //   return () => el?.removeEventListener("scroll", scrollEvent);
+  // }, [loading]);
 
   return (
     <div className="home_content_container">
-      <Categories />
-      <div ref={videoContainer} className="video_container">
-        {error && <h5 className="error_msg">{error}</h5>}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>YouTube Clone</title>
+      </Helmet>
 
-        {homevideos?.map(item => (
-          <Video key={item.etag} item={item} />
-        ))}
+      <Categories setfreezeCatg={setfreezeCatg} freezeCatg={freezeCatg} />
+      <div ref={videoContainer} className="video_container">
+        <div className="home_video_wrap">
+          {error && <h5 className="error_msg">{error}</h5>}
+          {homevideos?.map(item => (
+            <Video key={item.id} item={item} />
+          ))}
+        </div>
 
         {loading && (
           <div class="spinner-border spinner text-primary" role="status"></div>
+        )}
+
+        {!homevideos.length || (
+          <button className="loadMore_videos" onClick={loadMore}>
+            More videos
+          </button>
         )}
       </div>
     </div>

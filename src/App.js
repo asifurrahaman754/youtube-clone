@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import HomeScreen from "./pages/Home/HomeScreen";
-import "./_app.scss";
+import "./_base.scss";
 import { setuser } from "./redux/youtubeSlice";
 import { getUserInitialLoad } from "./firebase";
 import WatchScreen from "./pages/Watch/WatchScreen";
@@ -36,7 +36,7 @@ function App() {
         dispatch(setuser({}));
       }
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>

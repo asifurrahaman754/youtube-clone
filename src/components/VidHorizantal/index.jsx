@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import numeral from "numeral";
@@ -10,7 +10,7 @@ import { truncate } from "../../Utils";
 import request from "../../axios";
 import GetChannelDp from "../../custom hooks/useGetChannelDp";
 
-export default function VideoHorizantal({
+function VideoHorizantal({
   searchScrn,
   setrelatedVideos,
   data: {
@@ -18,6 +18,7 @@ export default function VideoHorizantal({
     snippet,
   },
 }) {
+  console.log("video horizantal");
   const [views, setviews] = useState();
   const [duration, setduration] = useState();
   const {
@@ -30,7 +31,7 @@ export default function VideoHorizantal({
   } = snippet;
   const history = useHistory();
 
-  const isChannel = kind == "youtube#channel";
+  const isChannel = kind === "youtube#channel";
   const seconds = moment.duration(duration).asSeconds();
   const ytduration = moment.utc(seconds * 1000).format("HH:mm:ss");
 
@@ -124,3 +125,5 @@ export default function VideoHorizantal({
     </a>
   );
 }
+
+export default memo(VideoHorizantal);

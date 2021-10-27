@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import numeral from "numeral";
+import { Helmet } from "react-helmet";
 
 import request from "../../axios";
 import Video from "../../components/video";
@@ -12,6 +13,7 @@ export default function Channel() {
   const [nextPage, setnextPage] = useState("");
   const [error, seterror] = useState("");
   const [channelVideos, setchannelVideos] = useState([]);
+  const [totalChannelVideos, settotalChannelVideos] = useState(0);
   const [channelVideoLoad, setchannelVideoLoad] = useState(true);
   const { channelid } = useParams();
 
@@ -33,6 +35,7 @@ export default function Channel() {
         .then(res => {
           seterror("");
           setchannelVideoLoad(false);
+          settotalChannelVideos(res.data.pageInfo.totalResults);
           setchannelVideos(
             currentPage ? [...channelVideos, ...res.data.items] : res.data.items
           );
@@ -42,7 +45,7 @@ export default function Channel() {
           setchannelVideoLoad(false);
           seterror("Failed getting the video. " + err.message);
         });
-  }, [playListId, currentPage, channelVideos]);
+  }, [playListId, currentPage]);
 
   //load more videos
   const loadMore = () => {
@@ -52,6 +55,10 @@ export default function Channel() {
 
   return (
     <div className="channel_container">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{currentVideoChannel?.snippet.title}</title>
+      </Helmet>
       <div className="channel_header">
         <img
           src={currentVideoChannel?.snippet.thumbnails.high.url}
@@ -72,25 +79,28 @@ export default function Channel() {
         </div>
       </div>
 
+      {!channelVideoLoad || (
+        <div
+          class="spinner-border text-primary d-block m-auto"
+          role="status"
+        ></div>
+      )}
+
       <div className="channel_video_wraper">
         {!error || <p>{error}</p>}
-        {!channelVideoLoad || (
-          <div
-            class="spinner-border text-primary d-block m-auto"
-            role="status"
-          ></div>
-        )}
-        {!channelVideos ||
+        {!channelVideos.length ||
           channelVideos.map(item => (
             <Video channelScrn key={item.id} item={item} />
           ))}
       </div>
 
-      {!channelVideos.length || (
-        <button className="loadMore_videos" onClick={loadMore}>
-          More videos
-        </button>
-      )}
+      {channelVideos.length
+        ? totalChannelVideos === channelVideos.length || (
+            <button className="loadMore_videos" onClick={loadMore}>
+              More videos
+            </button>
+          )
+        : null}
     </div>
   );
 }

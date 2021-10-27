@@ -1,7 +1,8 @@
+import { memo } from "react";
 import moment from "moment";
 import "./_style.scss";
 
-export default function CommentItem({
+function CommentItem({
   data: {
     snippet: { topLevelComment },
   },
@@ -17,7 +18,7 @@ export default function CommentItem({
 
   return (
     <div className="comment_wrapper">
-      <img src={authorProfileImageUrl} className="comment_img" />
+      <img src={authorProfileImageUrl} alt="" className="comment_img" />
 
       <div className="comment_details">
         <h3 className="com_channel_name">
@@ -31,3 +32,5 @@ export default function CommentItem({
     </div>
   );
 }
+
+export default memo(CommentItem);

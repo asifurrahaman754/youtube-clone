@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 
 import { useDispatch } from "react-redux";
 import "./_categories.scss";
 import { setactiveCategory } from "../../redux/youtubeSlice";
 import request from "../../axios";
 
-export default function Categories() {
+function Categories({ setfreezeCatg, freezeCatg }) {
   const [activeCat, setactiveCat] = useState("All");
   const [categories, setcategories] = useState([]);
   const [categoriesError, setcategoriesError] = useState("");
   const dispatch = useDispatch();
 
+  //get the random video category
   useEffect(() => {
     request("/videoCategories", {
       params: {
@@ -33,6 +34,7 @@ export default function Categories() {
   }, []);
 
   const handleCatClick = value => {
+    setfreezeCatg(true);
     setactiveCat(value);
     dispatch(
       value === "All" ? setactiveCategory("") : setactiveCategory(value)
@@ -40,7 +42,7 @@ export default function Categories() {
   };
 
   return (
-    <div className="categories_contaier">
+    <div className={`categories_contaier ${!freezeCatg || "freezeCat"}`}>
       {!categoriesError || <p>{categoriesError}</p>}
       {!categories.length ||
         categories.map(item => (
@@ -55,3 +57,5 @@ export default function Categories() {
     </div>
   );
 }
+
+export default memo(Categories);

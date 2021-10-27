@@ -7,7 +7,6 @@ import numeral from "numeral";
 import CommentItem from "./CommentItem";
 import "./_style.scss";
 import GetComments from "../../custom hooks/useGetComments";
-import request from "../../axios";
 
 export default function Comment({ data }) {
   const [inputFocus, setinputFocus] = useState(false);
@@ -38,31 +37,6 @@ export default function Comment({ data }) {
     setcurrentPage(nextPage);
   };
 
-  //post new comment
-  const postComment = () => {
-    const obj = {
-      snippet: {
-        videoId: id,
-        topLevelComment: {
-          snippet: {
-            textOriginal: inputValue,
-          },
-        },
-      },
-    };
-
-    request
-      .post("/commentThreads", JSON.stringify(obj), {
-        params: {
-          part: "snippet",
-          videoId: id,
-          access_token: accessToken,
-        },
-      })
-      .then(res => console.log("new com", res.data))
-      .catch(err => alert(err.message));
-  };
-
   return (
     <div className="comment_container">
       <span className="total_comment">
@@ -80,10 +54,7 @@ export default function Comment({ data }) {
         />
 
         {inputFocus && (
-          <button
-            onClick={postComment}
-            className={`comment_sub ${inputValue && "btn_active"}`}
-          >
+          <button className={`comment_sub ${inputValue && "btn_active"}`}>
             comment
           </button>
         )}

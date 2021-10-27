@@ -9,7 +9,8 @@ export default function useGetVIdeoData(
   homevideos,
   setnextPage,
   seterror,
-  setloading
+  setloading,
+  setfreezeCatg
 ) {
   const activeCategory = useSelector(state => state.youtube.activeCategory);
 
@@ -39,8 +40,11 @@ export default function useGetVIdeoData(
                   item => item.id.kind !== "youtube#channel"
                 )
           );
+          setfreezeCatg(false);
         })
         .catch(err => {
+          setfreezeCatg(false);
+          sethomevideos(homevideos.splice(0, homevideos.length));
           setloading(false);
           seterror(err.message + ". check the connection and try again later");
         });
@@ -55,7 +59,6 @@ export default function useGetVIdeoData(
         },
       })
         .then(res => {
-          console.log("most popular", res.data);
           setloading(false);
           setnextPage(res.data.nextPageToken);
           sethomevideos(
