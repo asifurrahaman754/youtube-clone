@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import request from "../../axios";
 import VideoHorizantal from "../VidHorizantal";
+import {Helmet} from 'react-helmet';
 import "./_style.scss";
 
 export default function Search() {
@@ -61,6 +62,10 @@ export default function Search() {
 
   return (
     <div ref={videoWrapRef} className="searchResults_container">
+       <Helmet>
+        <meta charSet="utf-8" />
+        <title>{query}</title>
+      </Helmet>
       {!error || <p className="text-center">{error}</p>}
       {!noresult || <p className="text-center">{noresult}</p>}
 
