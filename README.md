@@ -1,7 +1,7 @@
 # Project [Live](https://yt-clone754.netlify.app) 🚀
 
 
-This is a YoutTube Clone project where you can see the most popular videos with categories just like youtube. Also, you will have every data of a video from real YouTube (subscriber, like-dislike, comments, published, related videos, etc). You can also search any video or channel as you like.😃
+This is a fully responsive YoutTube Clone project where you can see the most popular videos with categories just like youtube. Also, you will have every data of a video from real YouTube (subscriber, like-dislike, comments, published, related videos, etc). You can also search any video or channel as you like.😃
 
 [![Capture.png](https://i.postimg.cc/vT0xxrvH/Capture.png)](https://postimg.cc/gL62f65f)
 
