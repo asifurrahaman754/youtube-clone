@@ -1,0 +1,128 @@
+$video_skeleton_bg: #d5d5d5;
+$video_image_height: 150px;
+$responsive_video_image_height: 200px;
+
+.video_wrap {
+  width: 100%;
+  cursor: pointer;
+
+  .video_img_wrap {
+    width: 100%;
+    height: $video_image_height;
+    position: relative;
+    background: $video_skeleton_bg;
+
+    @media (max-width: 500px) {
+      height: $responsive_video_image_height;
+    }
+
+    .lazy-load-image-background {
+      width: 100%;
+
+      img {
+        max-width: 100%;
+        width: 100%;
+        object-fit: cover;
+        height: $video_image_height;
+
+        @media (max-width: 500px) {
+          height: $responsive_video_image_height;
+        }
+      }
+    }
+
+    .vid_duration {
+      position: absolute;
+      bottom: 5px;
+      background: #000000;
+      color: white;
+      right: 5px;
+      font-size: 0.85rem;
+      padding: 0px 2px;
+      border-radius: 3px;
+    }
+  }
+
+  .video_details_wrap {
+    display: flex;
+    padding: 0 10px;
+    margin-top: 0.8rem;
+
+    img {
+      max-width: 35px;
+      height: 35px;
+      border-radius: 50px;
+      object-fit: cover;
+      margin-right: 0.5rem;
+    }
+
+    .vid_details {
+      .video_title {
+        font-size: 0.85rem;
+        letter-spacing: 0.3px;
+        font-weight: 600;
+      }
+
+      .channel_name {
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: #606060;
+        margin-bottom: 0;
+        margin-top: 0.5rem;
+      }
+
+      .video_info {
+        font-size: 0.8rem;
+        color: #606060;
+      }
+    }
+  }
+}
+
+.VideoSkeleton {
+  width: 100%;
+  height: 100%;
+
+  .video_thumbnail {
+    width: 100%;
+    height: 160px;
+    background: $video_skeleton_bg;
+
+    @media (max-width: 500px) {
+      height: 200px;
+    }
+  }
+
+  .video_info {
+    width: 100%;
+    display: flex;
+    padding: 0 10px;
+    margin-top: 0.8rem;
+
+    .video_channel {
+      width: 40px;
+      height: 40px;
+      border-radius: 50px;
+      margin-right: 0.5rem;
+      background: $video_skeleton_bg;
+      flex-shrink: 0;
+    }
+
+    .video_details {
+      width: 100%;
+    }
+
+    .video_details p {
+      width: 100%;
+      height: 20px;
+      border-radius: 3px;
+      background: $video_skeleton_bg;
+    }
+
+    .video_details p:nth-child(2) {
+      width: 60%;
+      margin-top: 0.5rem;
+    }
+  }
+}

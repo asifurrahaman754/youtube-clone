@@ -1,0 +1,124 @@
+@import "../../_base.scss";
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $nav-height;
+  padding: 0px 10px;
+
+  .logo_Icons {
+    display: flex;
+
+    .menuIcon {
+      width: 30px;
+      margin-right: 1rem;
+
+      @media (min-width: $breakpoint-small) {
+        &.hideInDesktop {
+          display: none;
+        }
+      }
+    }
+
+    .logo {
+      width: 100px;
+      margin-right: 1rem;
+    }
+  }
+
+  .header_form {
+    max-width: 550px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    @media (max-width: $breakpoint-small) {
+      &.hide_search {
+        display: none;
+      }
+    }
+
+    .search_input {
+      width: 100%;
+      font-size: 1.05rem;
+      padding: 4px 0px 3px 8px;
+      outline: none;
+      border: 1px solid #0000002e;
+    }
+
+    .searchIcon {
+      padding: 4px 25px;
+      border: 1px solid #0000002e;
+      border-left: none !important;
+      transition: all 0.2s;
+
+      & > img {
+        width: 23px;
+        cursor: pointer;
+      }
+
+      &:hover {
+        background-color: #e7e7e7;
+      }
+    }
+  }
+
+  .searchIconMobile {
+    width: 25px;
+    margin-left: auto;
+    display: none;
+
+    @media (max-width: $breakpoint-small) {
+      display: inline-block;
+    }
+  }
+
+  .backIcon {
+    width: 25px;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+
+  .header_icon_wrap {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+
+    & > * {
+      margin-left: 1.5rem;
+    }
+
+    .sign_inBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      font-size: 1.2rem;
+      border-radius: 3px;
+      padding: 5px 15px;
+      white-space: nowrap;
+      color: #065fd6;
+      border: 1px solid #065fd6;
+
+      span {
+        display: flex;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .user_image {
+      width: 40px;
+      height: 40px;
+      border-radius: 50px;
+      object-fit: cover;
+    }
+
+    @media (max-width: $breakpoint-small) {
+      & > *:not(img) {
+        display: none;
+      }
+    }
+  }
+}

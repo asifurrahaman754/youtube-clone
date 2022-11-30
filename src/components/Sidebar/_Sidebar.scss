@@ -1,0 +1,40 @@
+@import "../../base";
+
+.navItem_wrap {
+  width: 100%;
+  min-width: 220px;
+  max-width: 220px;
+  list-style: none;
+  padding: 1rem 10px 0px 0px;
+  background-color: white;
+
+  @media (max-width: $breakpoint-small) {
+    &.hideInMobile {
+      display: none;
+    }
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 9px 0px 9px 1rem;
+
+    &.active {
+      background: $gray-bg;
+    }
+
+    &:hover {
+      background: #e5e5e59e;
+    }
+
+    img {
+      width: 25px;
+    }
+
+    span {
+      margin-left: 1rem;
+      color: #000000d1;
+    }
+  }
+}

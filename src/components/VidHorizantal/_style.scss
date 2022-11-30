@@ -1,0 +1,138 @@
+@import "../../base";
+@import "../Comment/style";
+
+.video_horizantal_wrapper {
+  display: flex;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+
+  &.wrap_max {
+    max-width: 900px;
+  }
+
+  @media (max-width: $breakpoint-small) {
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+
+  .video_img_wrap {
+    position: relative;
+    max-width: 200px;
+    width: 100%;
+    height: max-content;
+
+    &.img_big {
+      max-width: 350px;
+    }
+
+    @media (max-width: $breakpoint-small) {
+      max-width: 100% !important;
+    }
+
+    .lazy-load-image-background {
+      width: 100%;
+
+      img {
+        max-width: 100%;
+        min-width: 180px;
+        width: 100%;
+        object-fit: cover;
+        height: 100%;
+
+        &.thumbRound {
+          max-width: 200px;
+          margin: 0 auto;
+          width: 100%;
+          display: block;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .vid_duration {
+      position: absolute;
+      bottom: 5px;
+      background: #000000;
+      color: white;
+      right: 5px;
+      font-size: 0.85rem;
+      padding: 0px 2px;
+      border-radius: 3px;
+    }
+  }
+
+  .horiz_vid_details {
+    margin-left: 1rem;
+
+    @media (max-width: $breakpoint-small) {
+      margin-top: 0.5rem;
+      display: flex;
+      margin-left: 0;
+    }
+
+    & > .lazy-load-image-background {
+      @media (min-width: $breakpoint-small) {
+        display: none !important;
+      }
+
+      .vidH_channel_dp {
+        @include image_round();
+
+        &.hideInMobile {
+          display: none;
+        }
+      }
+    }
+
+    .vid_details {
+      @media (max-width: $breakpoint-small) {
+        margin-left: 1rem;
+      }
+
+      .vidH_channel_dp {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+
+        @media (max-width: $breakpoint-small) {
+          display: none !important;
+        }
+      }
+
+      .vid_title {
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 0;
+        color: #212529;
+
+        @media (min-width: $breakpoint-small) {
+          &.vid_title_Search {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+
+      .vid_channel_title,
+      .video_stats {
+        font-size: 0.8rem;
+        color: #6c757d;
+
+        @media (min-width: $breakpoint-small) {
+          &.video_stats_search {
+            margin-top: 0.5rem;
+          }
+        }
+      }
+
+      .channel_desc {
+        font-size: 0.8rem;
+        color: #545b60;
+        margin-top: 1rem;
+      }
+    }
+  }
+}

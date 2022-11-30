@@ -1,0 +1,70 @@
+@import "../../components/Comment/style";
+@import "../../base";
+
+.channel_container {
+  width: 100%;
+  background-color: #f9f9f9;
+  height: calc(100vh - #{$nav-height});
+  overflow-y: scroll;
+
+  .channel_header {
+    display: flex;
+    background: white;
+    align-items: center;
+    padding: 1.5rem 10px;
+
+    .channel_thumb {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+
+      @media (max-width: $breakpoint-small) {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    .channel_details {
+      line-height: 10px;
+      margin-left: 1.5rem;
+
+      .channel_sub {
+        color: #6c757d;
+      }
+    }
+  }
+
+  .channel_video_wraper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-gap: 2rem 1rem;
+    padding: 1rem;
+
+    @media (max-width: 725px) {
+      display: block;
+
+      & > .video_wrap {
+        display: flex;
+        margin-bottom: 1rem;
+
+        .video_details_wrap {
+          margin-top: 0;
+        }
+      }
+
+      .video_img_wrap {
+        width: 40vw;
+
+        .lazy-load-image-loaded {
+          height: 100%;
+          width: inherit;
+        }
+      }
+    }
+  }
+
+  .loadMore_videos {
+    @include loadMoreStyle();
+  }
+}

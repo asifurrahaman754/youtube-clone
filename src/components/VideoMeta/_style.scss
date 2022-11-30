@@ -1,0 +1,112 @@
+.videoMeta_container {
+  .video_title {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    padding: 0 10px;
+  }
+
+  .video_info {
+    display: flex;
+    font-size: 0.9rem;
+    padding: 0 10px;
+
+    .views,
+    .video_published {
+      color: #6c757d;
+    }
+
+    .video_impression {
+      margin-left: auto;
+      font-size: 0.95rem;
+      display: flex;
+
+      span {
+        margin-right: 1.2rem;
+        display: flex;
+        align-items: center;
+
+        svg {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  .video_middle_info {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    margin: 1rem 0px;
+    border-top: 1px solid #6c757d2b;
+    border-bottom: 1px solid #6c757d2b;
+    position: relative;
+
+    .channel_icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      object-fit: cover;
+    }
+
+    .channel_data {
+      display: flex;
+      flex-direction: column;
+      margin: 0 0 10px 1rem;
+
+      .channel_title {
+        font-size: 0.85rem;
+        font-family: "Roboto";
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        color: #232323;
+      }
+
+      .channel_sub {
+        font-size: 0.82rem;
+        color: #6c757d;
+        margin: 0.2rem 0 0 0;
+      }
+
+      .show_more_details {
+        cursor: pointer;
+        color: #494f54;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: 600;
+        width: max-content;
+      }
+    }
+
+    .subscribe_btn {
+      padding: 8px 10px;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 2px;
+      text-transform: uppercase;
+      background: #cc0000;
+      margin-left: auto;
+    }
+  }
+
+  .video_details {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    overflow-x: hidden;
+    padding: 0 15px;
+    max-width: 540px;
+    white-space: pre-wrap;
+
+    .show_more_details {
+      display: block;
+      text-decoration: none;
+      color: black;
+      font-family: "Roboto";
+      margin-top: 1rem;
+      width: max-content;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.categories_contaier {
+  border-top: 1px solid #0000001a;
+  border-bottom: 1px solid #0000001a;
+  padding: 15px 10px;
+  overflow-x: scroll;
+
+  &.freezeCat {
+    pointer-events: none;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+
+  span {
+    background: whitesmoke;
+    padding: 5px 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 50px;
+    white-space: nowrap;
+    margin: 0.4rem;
+    cursor: pointer;
+
+    &:hover {
+      background: #ebe8e8;
+    }
+
+    &.active {
+      background: #404040;
+      color: white;
+      border: 1px solid #404040;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
+$nav-height: 60px;
+$gray-bg: #e5e5e5;
+$breakpoint-small: 1000px;
+
+body {
+  background-attachment: fixed;
+  font-family: "Roboto", sans-serif !important;
+  letter-spacing: 0.1px;
+  color: black;
+}
+
+.app_container {
+  display: flex;
+}
+
+p {
+  margin-bottom: 0;
+}
