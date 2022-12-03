@@ -27,6 +27,7 @@ export default function useGetVIdeoData(
       })
         .then((res) => {
           setloading(false);
+          seterror("");
           setnextPage(res.data.nextPageToken);
           //check wheather the item is not channel
           sethomevideos(
@@ -61,6 +62,7 @@ export default function useGetVIdeoData(
       })
         .then((res) => {
           setloading(false);
+          seterror("");
           setnextPage(res.data.nextPageToken);
           sethomevideos(
             currentPage ? [...homevideos, ...res.data.items] : res.data.items

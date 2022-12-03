@@ -12,9 +12,7 @@ export default function Search() {
   const [error, seterror] = useState("");
   const [noresult, setnoresult] = useState("");
   const [searchLoad, setsearchLoad] = useState(true);
-
   const videoWrapRef = useRef(null);
-
   const { query } = useParams();
 
   useEffect(() => {
