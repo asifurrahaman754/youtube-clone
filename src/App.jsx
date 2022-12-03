@@ -16,7 +16,6 @@ import "./_base.scss";
 
 function App() {
   const dispatch = useDispatch();
-
   //get the loged in user
   useEffect(() => {
     getUserInitialLoad((user) => {
